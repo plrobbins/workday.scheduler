@@ -1,11 +1,10 @@
 var saveBtn = $(".saveBtn");
-var currentHour = moment().format("HH");
-var currentHoutInt = parseInt(currentHour);
 //Current hour variable
 var currentHour = moment().format("HH");
+var currentHoutInt = parseInt(currentHour);
 
 //Data attributes for each hour
-$("9amRow").attr("data-time", moment("9:00 am", "h:mm a").format("HH"));
+$("9AMRow").attr("data-time", moment("9:00 am", "h:mm a").format("HH"));
 
 
 //Starting jQuery
@@ -22,6 +21,30 @@ $(document).ready(function () {
         //Variable for hour of the row and parse it
         var inputHour = $("#" + i + "Row").attr("data-time");
         var inputHourInt = parseInt(inputHour);
+
+        if (currentHourInt === inputHourInt) {
+            $("#" + i + "Row").addClass("present");
+        }
+        if (currentHourInt > inputHourInt) {
+            $("#" + i + "Row").addClass("past");
+        }
+        if (currentHourInt < inputHourInt) {
+            $("#" + i + "Row").addClass("future");
+        }
     }
+
+    //Saves data to local storage
+    saveBtn.on("click", function () {
+        var rowHour = $(this).attr("data-hour");
+        var input = $("#" + rowHour + "Row").val();
+        localStorage.setItem(rowHour, input);
+    });
+
+    //
+    function renderPlans() {
+        for (var i = 0; i <= 12; i++) {
+        $("#" + i + "Row").val(localStorage.getItem(i));
+        }
+      }
 
 });
