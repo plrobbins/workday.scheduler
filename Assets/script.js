@@ -1,7 +1,7 @@
 var saveBtn = $(".saveBtn");
 //Current hour variable
 var currentHour = moment().format("HH");
-var currentHoutInt = parseInt(currentHour);
+var currentHourInt = parseInt(currentHour);
 
 //Data attributes for each hour
 $("9AMRow").attr("data-time", moment("9:00 am", "h:mm a").format("HH"));
